@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&display=swap");
+
+/* start: Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Mukta", sans-serif;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 991px;
+    margin: 0 auto;
+    padding: 50px 10px;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+/* end: Global */
+
+/* start: Table */
+.table-wrapper {
+    height: 540px;
+    overflow: auto;
+    position: relative;
+}
+table {
+    border-collapse: collapse;
+    width: ;
+    min-width: 900px;
+}
+thead {
+    background-color: #222;
+    color: #fff;
+    position: sticky;
+    top: 0;
+}
+td,
+th {
+    padding: 8px 16px;
+    text-align: left;
+}
+th {
+    text-transform: uppercase;
+}
+td {
+    font-weight: 600;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+tr:hover td {
+    background-color: #f9f9f9;
+}
+.user {
+    display: flex;
+    align-items: center;
+}
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 16px;
+}
+.user-email {
+    font-weight: 400;
+    color: #555;
+}
+/* end: Table */

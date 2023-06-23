@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: left;
+    align-items: center;
+    background: url(../img/bg.jpg);
+    background-size: cover;
+}
+
+.container {
+    max-height: 580px;
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    margin-left: 40px;
+    max-width: 850px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px white;
+}
+
+.login {
+    width: 400px;
+}
+
+form {
+    width: 250px;
+    margin: 30px auto;
+}
+
+h1 {
+    margin: 5px;
+    text-align: center;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+hr {
+    border-top: 2px solid #ffa12c;
+}
+
+p {
+    text-align: center;
+    margin: 10px;
+    font-size: 14px;
+}
+
+form label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.required {
+    color: red;
+}
+
+.login input {
+    width: 100%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.login select {
+    width: 100%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+span {
+    width: 100%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    padding: 3px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.right {
+    width: 250px;
+    margin: 60px 0 0 0;
+}
+
+.right label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.right select {
+    width: 100%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+#latitudeValue {
+    display: block;
+    font-size: 16px;
+    padding: 5px;
+}
+
+#longitudeValue {
+    display: block;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.pencarian {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pencarian input {
+    width: 75%;
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.right .pencarian button {
+    cursor: pointer;
+}
+
+.right .buttondaftar button {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 252px;
+    color: #000000;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 5px;
+    background: #ffa12c;
+}
+
+.right button:hover {
+    background: #000633;
+    color: #fff;
+}
+
+/* menampilkan peta */
+#map {
+    margin-top: 10px;
+    width: 410px;
+    height: 90%;
+    border-radius: 10px;
+}
+
+@media (max-width: 880px) {
+    .container {
+        width: 100%;
+        max-width: 750px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    form {
+        width: 300px;
+        margin: 20px auto;
+    }
+
+    .login {
+        width: 400px;
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,207 @@
+body {
+    background: var(--grey);
+    overflow-x: hidden;
+}
+
+/* MAIN */
+main {
+    width: 100%;
+    padding: 15px 24px;
+    font-family: var(--poppins);
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+}
+
+main hr {
+    border-top: 2px solid #ffa12c;
+    margin-bottom: 10px;
+}
+
+main .head-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+}
+
+main .head-title .left h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+/* peta star */
+#map {
+    height: 440px;
+    width: auto;
+}
+main .kotak {
+    border-radius: 20px;
+    background: var(--light);
+    overflow-x: auto;
+}
+
+main .kota .order {
+    flex-grow: 1;
+    flex-basis: 500px;
+}
+/* peta close */
+
+/* data star */
+main .kotak2 {
+    border-radius: 20px;
+    background: var(--light);
+    overflow-x: auto;
+}
+
+main .kota2 .head {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    margin-bottom: 24px;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    margin: auto;
+    padding: 30px;
+}
+
+.wrapper .logo {
+    margin: 40% 0 10px 0;
+    text-align: center;
+}
+
+.logo img {
+    width: 200px; /* Sesuaikan ukuran logo sesuai kebutuhan */
+}
+
+.wrapper .form {
+    width: 100%;
+}
+
+.wrapper .form .inputfield {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.wrapper .form .inputfield label {
+    width: 200px;
+    color: #757575;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.wrapper .form .inputfield .input,
+.wrapper .form .inputfield .textarea {
+    width: 100%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.wrapper .form .inputfield .textarea {
+    width: 100%;
+    height: 125px;
+    resize: none;
+}
+
+.wrapper .form .inputfield .custom_select {
+    position: relative;
+    width: 100%;
+    height: 37px;
+}
+
+.wrapper .form .inputfield .custom_select:before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+}
+
+.wrapper .form .inputfield .custom_select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+}
+
+.wrapper .form .inputfield .input:focus,
+.wrapper .form .inputfield .textarea:focus,
+.wrapper .form .inputfield .custom_select select:focus {
+    border: 1px solid #fec107;
+}
+
+.wrapper .form .inputfield p {
+    font-size: 14px;
+    color: #757575;
+}
+
+.wrapper
+    .form
+    .inputfield
+    .check
+    input[type="checkbox"]:checked
+    ~ .checkmark:before {
+    display: block;
+}
+
+.wrapper .form .inputfield .btn:hover {
+    background: #ffd658;
+    color: black;
+}
+
+.wrapper .form .inputfield:last-child {
+    margin-bottom: 0;
+}
+
+.inputfield .btn {
+    width: 20%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 0px;
+    background: #000633;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+    margin-right: 10px;
+}
+
+.inputfield .btn2 {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 0px;
+    background: #dc3545;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+}
+
+.inputfield .btn2:hover {
+    background: #be2131;
+    color: white;
+}
+/* data close */

@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+
+:root {
+    /* masukan warna list2 warna untuk di panggil*/
+    --primary: #cca400;
+    --bg: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* agar tidak perlu mengatur lagi dimensi elemen saan diberikan padding atau border */
+    outline: none; /* untuk mau kasih style untuk forum atau button */
+    border: none; /* agar kita bisa kendali semua bordernya */
+    text-decoration: none; /*untuk tidak ada garis bawah ketika membuat link*/
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg);
+    color: #000000;
+}
+
+/* Heading Star */
+.heading {
+    background: url(../img/bg-login.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding-top: 5.5rem;
+    padding-bottom: 1rem;
+}
+
+h1 {
+    color: $black;
+    font-size: 2rem;
+}
+/* heading Close */
+
+h1 {
+    color: $black;
+    font-size: 2rem;
+}
+
+/* tentang kami start */
+.tentang {
+    padding: 2rem;
+}
+
+.tentang h2 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+    color: #313e52;
+}
+
+.tentang h2 span {
+    color: var(--primary);
+}
+
+.tentang .row {
+    display: flex;
+}
+
+.tentang .row .about-img {
+    flex: 1 1 40rem;
+}
+
+.tentang .row .about-img img {
+    width: 100%;
+}
+
+.tentang .row .content {
+    flex: 1 1 35rem;
+    padding: 0 1rem;
+}
+
+.tentang .row .content p {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+/* tentang kami close */
+
+/* my team start */
+.team {
+    margin-bottom: 20px;
+}
+
+.team h2 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.team h2 span {
+    color: #313e52;
+}
+
+.team p {
+    text-align: center;
+    max-width: 30rem;
+    margin: auto;
+    line-height: 1.5;
+}
+
+.team .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.team .row .team-card {
+    text-align: center;
+}
+
+.team .row .team-card img {
+    border-radius: 50%;
+    width: 50%;
+}
+
+.team .row .team-card .team-card-title {
+    margin-top: 1rem auto 0.5rem;
+    font-size: 0.9rem;
+}
+/* my team close */
