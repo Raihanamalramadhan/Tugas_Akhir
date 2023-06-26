@@ -97,7 +97,7 @@
         <div id="map"></div>
         <p>Untuk informasi mengenai merek Anda yang terdaftar di Kementerian Hukum dan Hak Asasi Manusia wilayah Aceh, pilih opsi 'Cek merek' dengan memasukkan nama sesuai sertifikat dan nomor pemohon. Fitur ini memungkinkan Anda melihat dan mengedit data alamat. Jika data Anda tidak ditemukan, tambahkan data baru dan tunggu proses perizinan dari Kemenkumham yang akan selesai dalam waktu singkat.</p>
         <a id="cekloginBtn" class="tombolcek">Cek Merek</a>
-        <a href="/tambahdata" class="tomboltambah">tambah data</a>
+        <a href="/addData" class="tomboltambah">tambah data</a>
     </div>
     {{--  menampilkan popup login  --}}
     <div id="cekloginPopup">

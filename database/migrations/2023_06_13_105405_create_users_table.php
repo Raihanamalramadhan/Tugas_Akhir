@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->foreign('id_kabupaten')->references('id')->on('kabupatens')->onDelete('cascade');
             $table->string('password');
             $table->string('nomor_pemohon');
-            $table->string('nomor_pemilik');
+            $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('email');
             $table->string('nama_merek');

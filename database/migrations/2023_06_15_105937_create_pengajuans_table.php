@@ -15,7 +15,7 @@ class CreatePengajuansTable extends Migration
     {
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_pemilik');
+            $table->string('nama_pemilik');
             $table->string('nomor_telepon');
             $table->string('nama_merek');
             $table->string('gambar_merek');

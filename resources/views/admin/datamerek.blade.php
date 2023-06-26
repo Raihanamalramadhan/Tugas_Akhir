@@ -34,6 +34,7 @@
                 <thead>
                     <tr>
                         <th> Nomor Pemohon <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Aksi </th>
                         <th> Nama Pemilik <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Nomor Telepon <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Email <span class="icon-arrow">&UpArrow;</span></th>
@@ -49,90 +50,16 @@
                 <tbody>
                     <tr>
                         <td> do037773629 </td>
+                        <td>
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Hapus</button>
+                        </td>
                         <td> Raihan Amal Ramadhan </td>
                         <td> 082236426492 </td>
                         <td> rayhan@gmail.com </td>
                         <td> kecap asin </td>
                         <td> 2020 </td>
                         <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> Banda aceh </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> do0893u92ru </td>
-                        <td> Yovie pramudia tama </td>
-                        <td> 0822388272662 </td>
-                        <td> yovie@gmail.com </td>
-                        <td> jelbab condel </td>
-                        <td> 2019 </td>
-                        <td> Merek Dagang </td>
-                        <td> 29 </td>
-                        <td> aceh tamian </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> do037773629 </td>
-                        <td> Sofia Safira </td>
-                        <td> 082238373636 </td>
-                        <td> sofia@gmail.com </td>
-                        <td> khaca rayeuk </td>
-                        <td> 2022 </td>
-                        <td> Merek dagang </td>
-                        <td> 17 </td>
-                        <td> Banda aceh </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> dofjfjf889 </td>
-                        <td> Putri Mahela </td>
-                        <td> 0829779273927 </td>
-                        <td> putri@gmail.com </td>
-                        <td> kebab </td>
-                        <td> 2021 </td>
-                        <td> Merek jasa </td>
-                        <td> 42 </td>
-                        <td> aceh singkil </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> dofjfjf889 </td>
-                        <td> Putri Mahela </td>
-                        <td> 0829779273927 </td>
-                        <td> putri@gmail.com </td>
-                        <td> kebab </td>
-                        <td> 2021 </td>
-                        <td> Merek jasa </td>
-                        <td> 42 </td>
-                        <td> aceh singkil </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> do0893u92ru </td>
-                        <td> Yovie pramudia tama </td>
-                        <td> 0822388272662 </td>
-                        <td> yovie@gmail.com </td>
-                        <td> jelbab condel </td>
-                        <td> 2019 </td>
-                        <td> Merek Dagang </td>
-                        <td> 29 </td>
-                        <td> aceh tamian </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td><a href="#">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td> do037773629 </td>
-                        <td> Sofia Safira </td>
-                        <td> 082238373636 </td>
-                        <td> sofia@gmail.com </td>
-                        <td> khaca rayeuk </td>
-                        <td> 2022 </td>
-                        <td> Merek dagang </td>
                         <td> 17 </td>
                         <td> Banda aceh </td>
                         <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>

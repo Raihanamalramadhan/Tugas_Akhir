@@ -258,6 +258,28 @@ tbody tr.hide td img {
     transition: 0.2s ease-in-out 0.5s;
 }
 
+.btn-edit,
+.btn-delete {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    opacity: 0.8;
+}
+
 @media (max-width: 1000px) {
     td:not(:first-of-type) {
         min-width: 12.1rem;

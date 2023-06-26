@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
 :root {
     --poppins: "Poppins", sans-serif;
     --lato: "Lato", sans-serif;
@@ -24,7 +32,7 @@
 }
 
 html {
-    margin: auto;
+    overflow-x: hidden;
 }
 
 body.dark {
@@ -35,6 +43,7 @@ body.dark {
 
 body {
     background: var(--grey);
+    overflow-x: hidden;
 }
 
 /* MAIN */
@@ -43,11 +52,12 @@ body {
     padding: 15px 24px;
     font-family: var(--poppins);
     max-height: calc(100vh - 56px);
+    overflow-y: auto;
 }
 
 #content main hr {
     border-top: 2px solid #ffa12c;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #content main .head-title {
@@ -56,6 +66,11 @@ body {
     justify-content: space-between;
     grid-gap: 16px;
     flex-wrap: wrap;
+}
+#content main .head-title .left h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--dark);
 }
 
 /* table star */
@@ -67,27 +82,21 @@ body1 {
 
 main.table {
     width: 96vw;
-    height: 80vh;
+    height: 75vh;
     background-color: #fff5;
-    margin-top: 0.5px;
+    margin-top: 5px;
     backdrop-filter: blur(7px);
     border-radius: 0.8rem;
+    overflow: hidden;
 }
 
 .table__header {
     width: 100%;
     height: 10%;
     padding: 0.8rem 1rem;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-#info-icon {
-    font-size: 25px;
-    color: #7e7e7e; /* Warna awal ikon */
-    cursor: pointer;
 }
 
 .table__header .input-group {
@@ -154,21 +163,56 @@ table {
     width: 100%;
 }
 
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+td .gambar-kecil {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+td .gambar-besar {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s;
+}
+
 table,
 th,
-.td {
+td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
+    text-align: center;
 }
 
 thead th {
+    min-width: 7rem;
+    width: 100%;
     position: sticky;
     top: 0;
     left: 0;
     background-color: #d5d1defe;
     cursor: pointer;
     text-transform: capitalize;
+}
+
+thead .kolom1 {
+    min-width: 10rem;
+}
+
+thead .kolom2 {
+    min-width: 14rem;
 }
 
 tbody tr:nth-child(even) {
@@ -202,17 +246,32 @@ tbody tr.hide td p {
     transition: 0.2s ease-in-out 0.5s;
 }
 
-td .gambar-kecil {
-    width: 85%;
-    height: 85%;
-    object-fit: cover;
-    border-radius: 50%;
+tbody tr.hide td img {
+    width: 0;
+    height: 0;
+    transition: 0.2s ease-in-out 0.5s;
 }
 
-td .gambar-besar {
-    width: 300px;
-    height: 300px;
-    transition: transform 0.8s;
+.btn-edit,
+.btn-delete {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #007bff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+    opacity: 0.8;
 }
 
 @media (max-width: 1000px) {
@@ -256,9 +315,48 @@ thead th.active,
 tbody td.active {
     color: #6c00bd;
 }
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Jarak antara tombol */
+    align-items: center;
+}
+
+.accept-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+    background-color: #45a049; /* Warna latar belakang saat kursor berada di atas tombol Terima */
+}
+
+.reject-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reject-button:hover {
+    background-color: #e53935; /* Warna latar belakang saat kursor berada di atas tombol Tolak */
+}
+
 /* table close */
 
-/* popup info */
+/* popup informasi*/
+#info-icon {
+    cursor: pointer;
+}
+
 .overlay {
     display: none;
     position: fixed;
@@ -316,3 +414,4 @@ tbody td.active {
 .popup button:hover {
     background-color: #0069d9;
 }
+/* popup informasi*/

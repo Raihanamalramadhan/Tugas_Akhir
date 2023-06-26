@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dataMerek', "App\Http\Controllers\DashboardController@index");
+Route::get('/addData', "App\Http\Controllers\DashboardController@create");
+Route::post('/tambahData', "App\Http\Controllers\DashboardController@store");
 // Route::get('/dataMerek', function () {
 //     return view('.dataMerek.data_merek', [
 //         "title" => "data merek"
@@ -57,9 +60,9 @@ Route::post('/ajukan', "App\Http\Controllers\PengajuanController@store");
 
 
 // tambah data
-Route::get('/tambahdata', function () {
-    return view('dataMerek.tambah_data');
-});
+// Route::get('/tambahdata', function () {
+//     return view('dataMerek.tambah_data');
+// });
 
 // Masuk akun
 Route::get('/cekdata', function () {
@@ -110,6 +113,8 @@ Route::get('/pengaturan', function () {
     ]);
 });
 
-Route::get('/notifikasi', function () {
-    return view('admin.notifikasi');
-});
+Route::get('/notifikasi', "App\Http\Controllers\DashboardController@showDataMerek");
+Route::delete('/notifikasi/{id}', 'App\Http\Controllers\DashboardController@destroy')->name('notifikasi.delete');
+// Route::get('/notifikasi', function () {
+//     return view('admin.notifikasi');
+// });
