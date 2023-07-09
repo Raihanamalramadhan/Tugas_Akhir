@@ -63,7 +63,7 @@
                     display: true,
                     title: {
                         display: true,
-                        text: "Jumlah"
+                        text: "Jumlah Merek"
                     },
                     ticks: {
                         precision: 0
