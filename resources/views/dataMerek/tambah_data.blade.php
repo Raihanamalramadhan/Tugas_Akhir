@@ -28,7 +28,7 @@
     <div class="login">
         <form action="{{url('tambahData')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <a href="/">
+            <a href="/dataMerek">
                 <i class="fas fa-home"></i> kembali
             </a>
             <h1>Pengajuan</h1>
@@ -76,7 +76,7 @@
             @enderror
 
             <label for="foto_sertifikat">Foto Sertifikat: <a class="required">*</a></label>
-            <input type="file" name="foto_sertifikat" class="form-control @error('foto_sertifikat') is-invalid @enderror" id="foto_sertifikat" accept=".jpg,.jpeg,.png,.gif,.pdf">
+            <input type="file" name="foto_sertifikat" class="form-control @error('foto_sertifikat') is-invalid @enderror" id="foto_sertifikat" accept=".jpg,.jpeg,.png,.gif">
             @error('foto_sertifikat')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror

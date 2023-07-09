@@ -65,7 +65,7 @@ body {
 
 #sidebar .side-menu {
     width: 100%;
-    margin-top: 48px;
+    margin-top: 85px;
 }
 #sidebar .side-menu li {
     height: 48px;
@@ -81,7 +81,7 @@ body {
 #sidebar .side-menu li.active::before {
     content: "";
     position: absolute;
-    width: 40px;
+    width: 46px;
     height: 40px;
     border-radius: 50%;
     top: -40px;
@@ -107,7 +107,7 @@ body {
     display: flex;
     align-items: center;
     border-radius: 48px;
-    font-size: 16px;
+    font-size: 17px;
     color: var(--dark);
     white-space: nowrap;
     overflow-x: hidden;

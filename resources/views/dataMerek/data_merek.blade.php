@@ -140,82 +140,35 @@
             <table>
                 <thead>
                     <tr>
-                        <th> No <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Nama Merek <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Tipe Merek <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Nama Tipe <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Gambar Merek</th>
                         <th> Kelas <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Gambar Merek </th>
-                        <th> Tahun Penerimaan <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Nama Pemilik <span class="icon-arrow">&UpArrow;</span></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> 1 </td>
-                        <td> Raihan Amal Ramadhan </td>
-                        <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
-                    <tr>
-                        <td> 2 </td>
-                        <td> Sofia Safira </td>
-                        <td> Dagang Jasa Dagang </td>
-                        <td> 20 </td>
-                        <td> <img src="img/kemenkumham.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2022 </td>
-                    </tr>
-                    <tr>
-                        <td> 3</td>
-                        <td> Putri Mahela </td>
-                        <td> Merek Dagang </td>
-                        <td> 40 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
-                    <tr>
-                        <td> 4</td>
-                        <td> Yovie </td>
-                        <td> Merek Dagang dan Jasa </td>
-                        <td> 20 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2021 </td>
-                    </tr>
-                    <tr>
-                        <td> 5</td>
-                        <td> Raihan Amal Ramadhan </td>
-                        <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
-                    <tr>
-                        <td> 6</td>
-                        <td> Raihan Amal Ramadhan </td>
-                        <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
-                    <tr>
-                        <td> 6</td>
-                        <td> Raihan Amal Ramadhan </td>
-                        <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
-                    <tr>
-                        <td> 6</td>
-                        <td> Raihan Amal Ramadhan </td>
-                        <td> Merek Dagang </td>
-                        <td> 17 </td>
-                        <td> <img src="img/team/1.jpg" alt="" class="gambar-kecil" onclick="toggleGambar(this)"></td>
-                        <td> 2019 </td>
-                    </tr>
+                    @foreach($users as $user)
+                    @if($user->id_status == 1)
+                        <tr data-userid="{{ $user->id }}">
+                            <td>{{ $user->nama_merek }}</td>
+                            <td>{{ $user->nama_tipe }}</td>
+                            <td style="width: 85px; height: 85px;">
+                                <a href="{{ asset('merek/' . $user->gambar_merek) }}" target="_blank">
+                                    <img src="{{ asset('merek/' . $user->gambar_merek) }}" alt="" class="gambar-kecil" onclick="openPopup('{{ asset('merek/' . $user->gambar_merek) }}')">
+                                </a>
+                            </td>
+                            <td>{{ $user->nama_kelas }}</td>
+                            <td>{{ $user->nama_pemilik }}</td>
+                        </tr>
+                    @endif
+                @endforeach
                 </tbody>
             </table>
         </section>
+
+
+
     </main>
 </body1>
 {{--  tabel close  --}}
@@ -317,14 +270,14 @@
     <script>
         // Data untuk grafik
         var data = {
-            labels: ["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
+            labels: {!! json_encode($label) !!},
             datasets: [
                 {
-                label: "jumlah merek",
-                data: getChartData(),
-                borderColor: "rgba(75, 192, 192, 1)",
-                backgroundColor: "rgba(75, 192, 192, 0.2)",
-                fill: true
+                    label: "Jumlah Merek",
+                    data: {!! json_encode($value) !!},
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    fill: true
                 }
             ]
         };
@@ -334,14 +287,25 @@
             responsive: true,
             title: {
                 display: true,
-                text: "Grafik Penjualan"
+                text: "Grafik Jumlah Merek"
             },
             scales: {
                 x: {
-                display: true
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Tahun"
+                    }
                 },
                 y: {
-                display: true
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Jumlah Merek"
+                    },
+                    ticks: {
+                        precision: 0
+                    }
                 }
             }
         };
@@ -353,106 +317,124 @@
             data: data,
             options: options
         });
-
-        // Fungsi untuk mendapatkan data dinamis untuk sumbu Y
-        function getChartData() {
-            // Contoh data dinamis
-            var dynamicData = [400, 100, 800, 400, 500, 1000, 1200, 1400];
-
-            // Kode untuk menghasilkan data dinamis di sini, misalnya:
-            // var dynamicData = [nilai1, nilai2, nilai3, ...];
-
-            return dynamicData;
-        }
     </script>
     {{--  grafik line close  --}}
 
     {{--  grafik donat  --}}
     <script>
-        // Data untuk grafik donat
-        var data = {
-        labels: ['Merek Dagang', 'Merek Jasa', 'Merek Kolektif', 'Merek Dagang dan Jasa'],
-        datasets: [{
-            data: [12, 19, 3, 5],
-            backgroundColor: ['#8B0000', '#00008B', '#808000', '#006400']
-        }]
-        };
-
-        // Opsi konfigurasi untuk grafik donat
-        var options = {
-        responsive: true
-        };
-
-        // Membuat grafik donat
         var ctx = document.getElementById('donutChart').getContext('2d');
-        var donutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: data,
-        options: options
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: @json($labels),
+                datasets: [{
+                    label: 'Data',
+                    data: @json($values),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'nama_tipe'
+                }
+            }
         });
     </script>
     {{--  grafik donat close  --}}
 
     {{--  Tabel star  --}}
     <script>
-        const search = document.querySelector('.input-group input'),
-        table_rows = document.querySelectorAll('tbody tr'),
-        table_headings = document.querySelectorAll('thead th');
+        const search = document.querySelector('.input-group input');
+        const tableRows = document.querySelectorAll('tbody tr');
+        const tableHeadings = document.querySelectorAll('thead th');
 
-        // 1. Searching for specific data of HTML table
+        // 1. Pencarian data pada tabel HTML
         search.addEventListener('input', searchTable);
 
         function searchTable() {
-            table_rows.forEach((row, i) => {
-                let table_data = row.textContent.toLowerCase(),
-                    search_data = search.value.toLowerCase();
+        const searchTerm = search.value.toLowerCase();
+        const matchingRows = [];
 
-                row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
-                row.style.setProperty('--delay', i / 25 + 's');
-            })
+        tableRows.forEach((row, i) => {
+            const tableData = row.textContent.toLowerCase();
+            const searchData = searchTerm.toLowerCase();
 
-            document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
-                visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
-            });
+            if (tableData.includes(searchData)) {
+                row.classList.remove('hide');
+                matchingRows.push(row);
+            } else {
+                row.classList.add('hide');
+            }
+
+            row.style.setProperty('--delay', i / 25 + 's');
+        });
+
+        matchingRows.forEach((visibleRow, i) => {
+            visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
+            document.querySelector('tbody').prepend(visibleRow);
+        });
+
+            scrollToFirstRow(matchingRows);
         }
 
-        // 2. Sorting | Ordering data of HTML table
-        table_headings.forEach((head, i) => {
-            let sort_asc = true;
-            head.onclick = () => {
-                table_headings.forEach(head => head.classList.remove('active'));
-                head.classList.add('active');
+        // 2. Pengurutan data pada tabel HTML
+        tableHeadings.forEach((head, i) => {
+        let sortAsc = true;
 
-                document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
-                table_rows.forEach(row => {
-                    row.querySelectorAll('td')[i].classList.add('active');
-                })
+        head.onclick = () => {
+            tableHeadings.forEach(head => head.classList.remove('active'));
+            head.classList.add('active');
 
-                head.classList.toggle('asc', sort_asc);
-                sort_asc = head.classList.contains('asc') ? false : true;
+            document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
+            tableRows.forEach(row => {
+                row.querySelectorAll('td')[i].classList.add('active');
+            });
 
-                sortTable(i, sort_asc);
-            }
-        })
+            head.classList.toggle('asc', sortAsc);
+            sortAsc = head.classList.contains('asc') ? false : true;
 
-        function sortTable(column, sort_asc) {
-            [...table_rows].sort((a, b) => {
-                let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
-                    second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+            sortTable(i, sortAsc);
+            scrollToFirstRow(tableRows);
+            };
+        });
 
-                return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+        function sortTable(column, sortAsc) {
+        [...tableRows]
+            .sort((a, b) => {
+                const firstRow = a.querySelectorAll('td')[column].textContent.toLowerCase();
+                const secondRow = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+                return sortAsc ? (firstRow < secondRow ? 1 : -1) : firstRow < secondRow ? -1 : 1;
             })
-                .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+            .map(sortedRow => document.querySelector('tbody').appendChild(sortedRow));
+        }
+
+        function scrollToFirstRow(rows) {
+            const main = document.querySelector('#content main');
+            const firstRow = rows.length > 0 ? rows[0] : tableRows[0];
+            const firstRowTop = firstRow.offsetTop - main.offsetTop;
+            main.scrollTo({ top: firstRowTop, behavior: 'smooth' });
         }
     </script>
     {{--  table close  --}}
-
-    {{--  popup gambar  start--}}
-    <script>
-        function toggleGambar(gambar) {
-        gambar.classList.toggle("gambar-besar");
-        }
-    </script>
-    {{--  popup gambar close  --}}
 </body>
 @endsection

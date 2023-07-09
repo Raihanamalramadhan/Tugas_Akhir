@@ -21,7 +21,7 @@ body {
     width: 100%;
     display: flex;
     margin-left: 40px;
-    max-width: 900px;
+    max-width: 860px;
     background: #fff;
     border-radius: 10px;
     box-shadow: inset -2px 2px 2px white;
@@ -147,7 +147,7 @@ button:hover {
 /* menampilkan peta */
 #map {
     margin-top: 10px;
-    width: 490px;
+    width: 440px;
     height: 62%;
     border-radius: 10px;
 }

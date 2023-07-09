@@ -15,9 +15,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $users = User::join('tipes', 'users.id_tipe', '=', 'tipes.id')
+        ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
+        ->select('users.*', 'tipes.nama_tipe', 'kelas.nama_kelas')
+        ->get();
         $kabupaten = DB::table("kabupatens")->get();
 
-        return view('dataMerek.data_merek', compact('kabupaten'));
+        $tipeCounts = $users->countby('nama_tipe');
+
+        $labels = $tipeCounts->keys()->toArray();
+        $values = $tipeCounts->values()->toArray();
+
+        $tahunCounts = $users->pluck('tahun_penerimaan')->countBy();
+
+        $label = $tahunCounts->keys()->toArray();
+        $value = $tahunCounts->values()->toArray();
+
+        return view('dataMerek.data_merek', compact('kabupaten', 'users', 'labels', 'values', 'label', 'value'));
     }
 
     public function create()
@@ -41,18 +55,19 @@ class DashboardController extends Controller
         'nama_merek' => 'required',
         'tahun_penerimaan' => 'required',
         'gambar_merek' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'foto_sertifikat' => 'required|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+        'foto_sertifikat' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         'longitude' => 'required',
         'latitude' => 'required',
     ]);
 
-    $gambarMerek = $request->file('gambar_merek');
-    $imageNameMerek = $gambarMerek->getClientOriginalName();
-    $gambarMerek->storeAs('public/uploads', $imageNameMerek);
+    // $imageName = time() . '.' . $request->gambar_merek->extension();
+    // $request->gambar_merek->move(public_path('merek'), $imageName);
 
-    $fotoSertifikat = $request->file('foto_sertifikat');
-    $imageNameSertifikat = $fotoSertifikat->getClientOriginalName();
-    $fotoSertifikat->storeAs('public/uploads', $imageNameSertifikat);
+    $Sertifikat = time() . '.' . $request->foto_sertifikat->extension();
+    $request->foto_sertifikat->move(public_path('sertifikat'), $Sertifikat);
+
+    $imageName = time() . '.' . $request->gambar_merek->extension();
+    $request->gambar_merek->move(public_path('merek'), $imageName);
 
     $newUser = new User();
     $newUser->nomor_pemohon = $request->nomor_pemohon;
@@ -63,8 +78,8 @@ class DashboardController extends Controller
     $newUser->tahun_penerimaan = $request->tahun_penerimaan;
     $newUser->id_tipe = $request->id_tipe;
     $newUser->id_kelas = $request->id_kelas;
-    $newUser->gambar_merek = $imageNameMerek;
-    $newUser->foto_sertifikat = $imageNameSertifikat;
+    $newUser->gambar_merek = $imageName;
+    $newUser->foto_sertifikat = $Sertifikat;
     $newUser->id_kabupaten = $request->id_kabupaten;
     $newUser->latitude = $request->latitude;
     $newUser->longitude = $request->longitude;
@@ -73,24 +88,46 @@ class DashboardController extends Controller
     return redirect('addData')->with('success', 'Register berhasil, tunggu konfirmasi dari admin');
 }
 
-    public function showDataMerek()
-    {
-        $users = User::all(); // Mengambil semua data pengguna dari model "User"
+public function showDataMerek()
+{
+    $users = User::join('kabupatens', 'users.id_kabupaten', '=', 'kabupatens.id')
+        ->join('tipes', 'users.id_tipe', '=', 'tipes.id')
+        ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
+        ->select('users.*', 'kabupatens.nama_kabupaten as nama_kabupaten', 'tipes.nama_tipe', 'kelas.nama_kelas')
+        ->get();
 
-        return view('admin.notifikasi', compact('users')); // Meneruskan data pengguna ke tampilan (view)
-    }
+    $jumlahData = User::count();
+
+    return view('admin.notifikasi', compact('users'));
+}
+
 
     public function destroy($id)
-{
-    $user = User::findOrFail($id);
-    $user->delete();
-
-    if ($user) {
+    {
+        $user = User::findOrFail($id);
         $user->delete();
-        return back()->with('success', 'Data berhasil ditolak');
-    } else {
-        return back()->with('error', 'Data tidak ditemukan');
+
+        if ($user) {
+            $user->delete();
+            return back()->with('success', 'Data berhasil ditolak');
+        } else {
+            return back()->with('error', 'Data tidak ditemukan');
+        }
     }
-}
     // ...
+
+    public function terimaData($userId)
+    {
+        $user = User::find($userId);
+
+        if ($user) {
+            $user->id_status = 1;
+            $user->save();
+            return response()->json(['message' => 'Data berhasil diterima'], 200);
+        }
+
+        return response()->json(['message' => 'Data tidak ditemukan'], 404);
+    }
+
+
 }

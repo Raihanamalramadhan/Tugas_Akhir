@@ -320,6 +320,7 @@ tbody td.active {
     display: flex;
     gap: 10px; /* Jarak antara tombol */
     align-items: center;
+    margin-top: 10px;
 }
 
 .accept-button {

@@ -82,9 +82,9 @@ body1 {
 
 main.table {
     width: 96vw;
-    height: 90vh;
+    height: 75vh;
     background-color: #fff5;
-    margin-top: 20px;
+    margin-top: 5px;
     backdrop-filter: blur(7px);
     border-radius: 0.8rem;
     overflow: hidden;
@@ -93,9 +93,7 @@ main.table {
 .table__header {
     width: 100%;
     height: 10%;
-    background-color: #fff4;
     padding: 0.8rem 1rem;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -208,10 +206,11 @@ td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
+    text-align: center;
 }
 
 thead th {
-    min-width: 13.9rem;
+    min-width: 7rem;
     width: 100%;
     position: sticky;
     top: 0;
@@ -219,6 +218,14 @@ thead th {
     background-color: #d5d1defe;
     cursor: pointer;
     text-transform: capitalize;
+}
+
+thead .kolom1 {
+    min-width: 10rem;
+}
+
+thead .kolom2 {
+    min-width: 14rem;
 }
 
 tbody tr:nth-child(even) {
@@ -321,4 +328,104 @@ thead th.active,
 tbody td.active {
     color: #6c00bd;
 }
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Jarak antara tombol */
+    align-items: center;
+    margin-top: 10px;
+}
+
+.accept-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.accept-button:hover {
+    background-color: #45a049; /* Warna latar belakang saat kursor berada di atas tombol Terima */
+}
+
+.reject-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reject-button:hover {
+    background-color: #e53935; /* Warna latar belakang saat kursor berada di atas tombol Tolak */
+}
+
 /* table close */
+
+/* popup informasi*/
+#info-icon {
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.popup h2 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.popup p {
+    font-size: 16px;
+}
+
+.popup ul {
+    list-style-type: disc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.popup li {
+    margin-bottom: 10px;
+}
+
+.popup button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #0069d9;
+}
+/* popup informasi*/

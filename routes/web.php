@@ -89,23 +89,37 @@ Route::get('/detailPermintaan/{id}', 'App\Http\Controllers\PengajuanController@s
 //     ]);
 // });
 
-Route::get('/persentase', function () {
-    return view('admin.persentase',[
-        "title" => "Grafik Admin"
-    ]);
-});
+Route::get('/persentase', "App\Http\Controllers\DatagrafikController@index");
+// Route::get('/persentase', function () {
+//     return view('admin.persentase',[
+//         "title" => "Grafik Admin"
+//     ]);
+// });
 
-Route::get('/datamerek', function () {
-    return view('admin.datamerek',[
-        "title" => "Data Merek"
-    ]);
-});
+Route::get('/{id}/edit', "App\Http\Controllers\MerekController@edit");
+Route::put('/{id}', "App\Http\Controllers\MerekController@update");
+// Route::get('/edit_data', function () {
+//     return view('admin.edit_data',[
+//         "title" => "Grafik Admin"
+//     ]);
+// });
 
-Route::get('/tambah', function () {
-    return view('admin.tambah',[
-        "title" => "pengaturan"
-    ]);
-});
+// Route::get('/datamerek', function () {
+//     return view('admin.datamerek',[
+//         "title" => "Data Merek"
+//     ]);
+// });
+
+// Route::get('/tambah', function () {
+//     return view('admin.tambah',[
+//         "title" => "pengaturan"
+//     ]);
+// });
+
+Route::get('/datamerek', "App\Http\Controllers\MerekController@index");
+Route::get('/datamerek', "App\Http\Controllers\MerekController@showDataMerek");
+Route::get('/tambah', "App\Http\Controllers\MerekController@create");
+Route::post('/tambahdataAdmin', "App\Http\Controllers\MerekController@store");
 
 Route::get('/pengaturan', function () {
     return view('admin.pengaturan',[
@@ -113,6 +127,7 @@ Route::get('/pengaturan', function () {
     ]);
 });
 
+Route::post('/notifikasi/terima/{userId}', 'App\Http\Controllers\DashboardController@terimaData')->name('notifikasi.terima');
 Route::get('/notifikasi', "App\Http\Controllers\DashboardController@showDataMerek");
 Route::delete('/notifikasi/{id}', 'App\Http\Controllers\DashboardController@destroy')->name('notifikasi.delete');
 // Route::get('/notifikasi', function () {

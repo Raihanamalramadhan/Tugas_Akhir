@@ -8,14 +8,12 @@
     {{--  menghubungkan chart.js  --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <title>WEB GIS | {{ $title }}</title>
 </head>
 <body>
     <div class="charts">
         <div class="chart">
             <h2>Jumlah merek pertahun</h2>
             <canvas id="myChart"></canvas>
-            <label for="y-axis-description">Tahun</label>
         </div>
         <div class="chart" id="doughnut-chart">
             <h2>Jumlah Tipe Pemohon</h2>
@@ -30,111 +28,145 @@
     </div>
 {{--  Grafik Close  --}}
 
-{{--  grafik line star  --}}
-<script>
-    // Data untuk grafik
-    var data = {
-        labels: ["2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"],
-        datasets: [
-            {
-            label: "jumlah merek",
-            data: getChartData(),
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            fill: true
-            }
-        ]
-    };
+        {{--  grafik line star  --}}
+    <script>
+        // Data untuk grafik
+        var data = {
+            labels: {!! json_encode($label) !!},
+            datasets: [
+                {
+                    label: "Jumlah Merek",
+                    data: {!! json_encode($value) !!},
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    fill: true
+                }
+            ]
+        };
 
-    // Pengaturan opsi
-    var options = {
-        responsive: true,
-        title: {
-            display: true,
-            text: "Grafik Penjualan"
-        },
-        scales: {
-            x: {
-            display: true
+        // Pengaturan opsi
+        var options = {
+            responsive: true,
+            title: {
+                display: true,
+                text: "Grafik Jumlah Merek"
             },
-            y: {
-            display: true
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Tahun"
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Jumlah"
+                    },
+                    ticks: {
+                        precision: 0
+                    }
+                }
             }
-        }
-    };
+        };
 
-    // Membuat grafik garis
-    var ctx = document.getElementById("myChart").getContext("2d");
-    var myChart = new Chart(ctx, {
-        type: "line",
-        data: data,
-        options: options
-    });
-
-    // Fungsi untuk mendapatkan data dinamis untuk sumbu Y
-    function getChartData() {
-        // Contoh data dinamis
-        var dynamicData = [400, 100, 800, 400, 500, 1000, 1200, 1400];
-
-        // Kode untuk menghasilkan data dinamis di sini, misalnya:
-        // var dynamicData = [nilai1, nilai2, nilai3, ...];
-
-        return dynamicData;
-    }
+        // Membuat grafik garis
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: data,
+            options: options
+        });
     </script>
     {{--  grafik line close  --}}
 
     {{--  grafik donat  --}}
     <script>
-        // Data untuk grafik donat
-        var data = {
-        labels: ['Merek Dagang', 'Merek Jasa', 'Merek Kolektif', 'Merek Dagang dan Jasa'],
-        datasets: [{
-            data: [12, 19, 3, 5],
-            backgroundColor: ['#8B0000', '#00008B', '#808000', '#006400']
-        }]
-        };
-
-        // Opsi konfigurasi untuk grafik donat
-        var options = {
-        responsive: true
-        };
-
-        // Membuat grafik donat
         var ctx = document.getElementById('donutChart').getContext('2d');
-        var donutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: data,
-        options: options
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: @json($labels),
+                datasets: [{
+                    label: 'Data',
+                    data: @json($values),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'nama_tipe'
+                }
+            }
         });
     </script>
     {{--  grafik donat close  --}}
 
     {{--  grafik bar star --}}
-        <script>
-            var ctx = document.getElementById('bar1').getContext('2d');
-            var bar1 = new Chart(ctx, {
+    <script>
+        var ctx = document.getElementById('bar1').getContext('2d');
+        var barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['kelas 1', 'kelas 2', 'kelas 3', 'kelas 4', 'kelas 5', 'kelas 6', 'kelas 7', 'kelas 8', 'kelas 9', 'kelas 10', 'kelas 11', 'kelas 12', 'kelas 13', 'kelas 14', 'kelas 15', 'kelas 16', 'kelas 17', 'kelas 18', 'kelas 19', 'kelas 20', 'kelas 21', 'kelas 22', 'kelas 23', 'kelas 24', 'kelas 25', 'kelas 26', 'kelas 27', 'kelas 28', 'kelas 29', 'kelas 30', 'kelas 31', 'kelas 32', 'kelas 33', 'kelas 34', 'kelas 35', 'kelas 36', 'kelas 37', 'kelas 38', 'kelas 39', 'kelas 40', 'kelas 41', 'kelas 42', 'kelas 43', 'kelas 44', 'kelas 45'],
+                labels: {!! json_encode($lebel) !!},
                 datasets: [{
-                label: 'Data',
-                data: [12, 19, 3, 5, 2],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                    label: 'Data Kelas',
+                    data: {!! json_encode($valu) !!},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 scales: {
-                y: {
-                    beginAtZero: true
-                }
+                    y: {
+                        beginAtZero: true,
+                        precision: 0,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value, index, values) {
+                                return value.toFixed(0);
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Jumlah merek' // Teks untuk sumbu Y
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Kelas' // Teks untuk sumbu X
+                        }
+                    }
                 }
             }
-            });
-        </script>
+        });
+    </script>
+
+
     {{--  grafik bar close  --}}
 </body>
 @endsection

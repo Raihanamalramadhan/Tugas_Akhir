@@ -7,6 +7,7 @@
 
     {{--  icon  --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <main>
@@ -16,7 +17,6 @@
                 <hr>
             </div>
         </div>
-
 {{--  tabel star--}}
 <body1>
     <main class="table">
@@ -45,47 +45,53 @@
             <table>
                 <thead>
                     <tr>
-                        <th class="kolom1"> Bukti Sertifikat</th>
                         <th class="kolom1"> Aksi</th>
-                        <th> Lokasi</th>
+                        <th class="kolom1"> Bukti Sertifikat</th>
                         <th class="kolom1"> Gambar Merek</th>
                         <th class="kolom2"> Nomor Pemohon <span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom2"> Nama Merek <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="kolom2"> Nama Pemilik <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="kolom2"> Nomor Telepon <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                        <th class="kolom2"> Nama Merek <span class="icon-arrow">&UpArrow;</span></th>
-                        <th class="kolom2"> Tahun Penerimaan <span class="icon-arrow">&UpArrow;</span></th>
                         <th class="kolom2"> Tipe Pemohon <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Kelas <span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom2"> Tahun Penerimaan <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Kabupaten</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($users as $user)
-                    <tr>
-                        <td style="width: 85px; height: 85px;">
-                            <img src="{{ asset('storage/gambar/' . $user->foto_sertifikat) }}" alt="" class="gambar-kecil" onclick="toggleGambar(this)">
-                        </td>
-                        <td class="button-container">
-                            <button type="submit" class="accept-button">Terima</button>
-                            <form action="{{ route('notifikasi.delete', $user->id) }}" method="POST" class="delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="reject-button" onclick="confirmDelete(event)">Tolak</button>
-                            </form>
-                        </td>
-                        <td> <a href="#">Detail</a></td>
-                        <td style="width: 85px; height: 85px;">
-                            <img src="{{ asset('storage/gambar/' . $user->gambar_merek) }}" alt="" class="gambar-kecil" onclick="toggleGambar(this)">
-                        </td>
-                        <td> {{ $user->nomor_pemohon }} </td>
-                        <td>{{ $user->nama_pemilik }}</td>
-                        <td>{{ $user->nomor_telepon }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td> {{ $user->nama_merek }}</td>
-                        <td>{{ $user->tahun_penerimaan }}</td>
-                        <td>{{ $user->id_tipe }}</td>
-                        <td>{{ $user->id_kelas }}</td>
-                    </tr>
+                        @if($user->id_status == 2)
+                            <tr data-userid="{{ $user->id }}">
+                                <td class="button-container">
+                                    <button id="tombol-tambah" type="button" class="accept-button" onclick="terimaData({{ $user->id }})">Terima</button>
+                                    <form action="{{ route('notifikasi.delete', $user->id) }}" method="POST" class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="reject-button" onclick="confirmDelete(event)">Tolak</button>
+                                    </form>
+                                </td>
+                                <td style="width: 85px; height: 85px;">
+                                    <a href="{{ asset('sertifikat/' . $user->foto_sertifikat) }}" target="_blank">
+                                        <img src="{{ asset('sertifikat/' . $user->foto_sertifikat) }}" alt="" class="gambar-kecil" onclick="toggleGambar(this)">
+                                    </a>
+                                </td>
+                                <td style="width: 85px; height: 85px;">
+                                    <a href="{{ asset('merek/' . $user->gambar_merek) }}" target="_blank">
+                                        <img src="{{ asset('merek/' . $user->gambar_merek) }}" alt="" class="gambar-kecil" onclick="openPopup('{{ asset('merek/' . $user->gambar_merek) }}')">
+                                    </a>
+                                </td>
+                                <td>{{ $user->nomor_pemohon }}</td>
+                                <td>{{ $user->nama_merek }}</td>
+                                <td>{{ $user->nama_pemilik }}</td>
+                                <td>{{ $user->nomor_telepon }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->nama_tipe }}</td>
+                                <td>{{ $user->nama_kelas }}</td>
+                                <td>{{ $user->tahun_penerimaan }}</td>
+                                <td>{{ $user->nama_kabupaten }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -171,14 +177,6 @@
     </script>
     {{--  table close  --}}
 
-    {{--  popup gambar  start--}}
-    <script>
-        function toggleGambar(gambar) {
-        gambar.classList.toggle("gambar-besar");
-        }
-    </script>
-    {{--  popup gambar close  --}}
-
     {{--  tabel menampilkan popup hapus --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -258,5 +256,65 @@
         }
     </script>
     {{--  informasi tentang close  --}}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        async function terimaData(userId) {
+            try {
+                const response = await fetch('/notifikasi/terima/' + userId, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+                if (response.ok) {
+                    console.log('Data berhasil diterima');
+                    // Hapus baris notifikasi dari tabel
+                    const userRow = document.querySelector(`tr[data-userid="${userId}"]`);
+                    if (userRow) {
+                        userRow.classList.add('fade-out'); // Tambahkan kelas CSS "fade-out"
+                        setTimeout(function() {
+                            userRow.remove();
+                        }, 500); // Hapus baris setelah 500ms (sesuaikan dengan durasi animasi CSS)
+
+                        // Tampilkan pesan informasi
+                        const infoMessage = document.querySelector('.info-message');
+                        infoMessage.textContent = 'Data berhasil diterima';
+                        infoMessage.style.display = 'block';
+                        setTimeout(function() {
+                            infoMessage.style.display = 'none';
+                        }, 3000); // Hilangkan pesan setelah 3 detik
+                    }
+                } else {
+                    console.error('Gagal menerima data');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    </script>
+
+    {{--  popup berhasil di terima  --}}
+    <!-- Pastikan Anda memiliki tautan ke library SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+    // Mendapatkan referensi tombol tambah
+    const tombolTambah = document.getElementById('tombol-tambah');
+
+    // Menambahkan event listener untuk saat tombol diklik
+    tombolTambah.addEventListener('click', function() {
+        // Menampilkan notifikasi dengan animasi menggunakan SweetAlert2
+        Swal.fire({
+        icon: 'success',
+        title: 'Data telah diterima!',
+        showConfirmButton: false,
+        timer: 3000 // Waktu dalam milidetik (ms) sebelum notifikasi ditutup otomatis
+        });
+    });
+    </script>
 
 @endsection

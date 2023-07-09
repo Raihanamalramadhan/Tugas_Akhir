@@ -53,17 +53,14 @@
                         <td class="td1">{{ $data_pengajuan->nama_pemilik }}</td>
                         <td class="td1">{{ $data_pengajuan->nomor_telepon }}</td>
                         <td class="td1">{{ $data_pengajuan->nama_merek }}</td>
-                        <td style="width: 85px; height: 85px;">
+                        {{--  <td style="width: 85px; height: 85px;">
                             <img src="{{ asset('merek_gambar/' . $data_pengajuan->gambar_merek) }}" alt="" class="gambar-kecil" onclick="openPopup('{{ asset('merek_gambar/' . $data_pengajuan->gambar_merek) }}')">
-
-                            <div id="popup" class="popup">
-                                <div class="popup-content">
-                                    <span class="close" onclick="closePopup()">&times;</span>
-                                    <img class="popup-image" id="popupImage">
-                                </div>
-                            </div>
+                        </td>  --}}
+                        <td style="width: 85px; height: 85px;">
+                            <a href="{{ asset('merek_gambar/' . $data_pengajuan->gambar_merek) }}" target="_blank">
+                                <img src="{{ asset('merek_gambar/' . $data_pengajuan->gambar_merek) }}" alt="" class="gambar-kecil" onclick="openPopup('{{ asset('merek_gambar/' . $data_pengajuan->gambar_merek) }}')">
+                            </a>
                         </td>
-
                         <td class="td1"><a href="{{ route('detailPermintaan', ['id' => $data_pengajuan->id]) }}">detail</a></td>
                         <td>
                             <form action="{{ route('beranda.delete', ['id' => $data_pengajuan->id]) }}" method="POST" class="delete-form">
@@ -141,60 +138,81 @@
         L.control.layers(tileLayers).addTo(map);
     </script>
 
-    <!-- {{--  Tabel star  --}} -->
+    {{--  Tabel star  --}}
     <script>
-        const search = document.querySelector('.input-group input'),
-        table_rows = document.querySelectorAll('tbody tr'),
-        table_headings = document.querySelectorAll('thead th');
+        const search = document.querySelector('.input-group input');
+        const tableRows = document.querySelectorAll('tbody tr');
+        const tableHeadings = document.querySelectorAll('thead th');
 
-        // 1. Searching for specific data of HTML table
+        // 1. Pencarian data pada tabel HTML
         search.addEventListener('input', searchTable);
 
         function searchTable() {
-            table_rows.forEach((row, i) => {
-                let table_data = row.textContent.toLowerCase(),
-                    search_data = search.value.toLowerCase();
+        const searchTerm = search.value.toLowerCase();
+        const matchingRows = [];
 
-                row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
-                row.style.setProperty('--delay', i / 25 + 's');
-            })
+        tableRows.forEach((row, i) => {
+            const tableData = row.textContent.toLowerCase();
+            const searchData = searchTerm.toLowerCase();
 
-            document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
-                visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
-            });
-        }
-
-        // 2. Sorting | Ordering data of HTML table
-
-        table_headings.forEach((head, i) => {
-            let sort_asc = true;
-            head.onclick = () => {
-                table_headings.forEach(head => head.classList.remove('active'));
-                head.classList.add('active');
-
-                document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
-                table_rows.forEach(row => {
-                    row.querySelectorAll('td')[i].classList.add('active');
-                })
-
-                head.classList.toggle('asc', sort_asc);
-                sort_asc = head.classList.contains('asc') ? false : true;
-
-                sortTable(i, sort_asc);
+            if (tableData.includes(searchData)) {
+                row.classList.remove('hide');
+                matchingRows.push(row);
+            } else {
+                row.classList.add('hide');
             }
-        })
 
-        function sortTable(column, sort_asc) {
-            [...table_rows].sort((a, b) => {
-                let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
-                    second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+            row.style.setProperty('--delay', i / 25 + 's');
+        });
 
-                return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
-            })
-                .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+        matchingRows.forEach((visibleRow, i) => {
+            visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
+            document.querySelector('tbody').prepend(visibleRow);
+        });
+
+            scrollToFirstRow(matchingRows);
         }
-        </script>
-        {{--  table close  --}}
+
+        // 2. Pengurutan data pada tabel HTML
+        tableHeadings.forEach((head, i) => {
+        let sortAsc = true;
+
+        head.onclick = () => {
+            tableHeadings.forEach(head => head.classList.remove('active'));
+            head.classList.add('active');
+
+            document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
+            tableRows.forEach(row => {
+                row.querySelectorAll('td')[i].classList.add('active');
+            });
+
+            head.classList.toggle('asc', sortAsc);
+            sortAsc = head.classList.contains('asc') ? false : true;
+
+            sortTable(i, sortAsc);
+            scrollToFirstRow(tableRows);
+            };
+        });
+
+        function sortTable(column, sortAsc) {
+        [...tableRows]
+            .sort((a, b) => {
+                const firstRow = a.querySelectorAll('td')[column].textContent.toLowerCase();
+                const secondRow = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+                return sortAsc ? (firstRow < secondRow ? 1 : -1) : firstRow < secondRow ? -1 : 1;
+            })
+            .map(sortedRow => document.querySelector('tbody').appendChild(sortedRow));
+        }
+
+        function scrollToFirstRow(rows) {
+            const main = document.querySelector('#content main');
+            const firstRow = rows.length > 0 ? rows[0] : tableRows[0];
+            const firstRowTop = firstRow.offsetTop - main.offsetTop;
+            main.scrollTo({ top: firstRowTop, behavior: 'smooth' });
+        }
+    </script>
+    {{--  table close  --}}
 
         {{--  tabel menampilkan popup hapus --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
