@@ -22,25 +22,27 @@
                 <span1>Kemenkumham@gmail.com</span1>
                 <label for="">Password</label>
                 <span1>Kemenkumham123456</span1>
-                <span id="cekloginBtn" class="button-link">Ganti Password</span>
+                <span id="cekloginBtn" class="button-link">edit</span>
             </form>
         {{--  menampilkan popup login  --}}
         <div id="cekloginPopup">
             <div class="cekpopupContent">
                 <form>
-                    <label>Sandi</label><br>
-                    <input  type="text" id="nama-pemilik-merek" placeholder="Masukkan sandi"><br>
-                    <label>Konfimasi Sandi</label><br>
-                    <input  type="text" id="nomor-pemohon" placeholder="Masukkan sandi ulang"><br>
-                    <button type="submit">Ubah</button>
-                    <button button id="cekcloseBtn">Batal</button>
+                    <label>Email</label>
+                    <input type="text" id="nama-pemilik-merek" placeholder="Masukkan sandi"><br>
+                    <label>Password</label>
+                    <input type="text" id="nomor-pemohon" placeholder="Masukkan sandi ulang"><br>
+                    <label for="foto-profil">Foto Profil</label>
+                    <input type="file" id="foto-profil" accept="image/*">
+                    <button type="submit">Simpan</button>
+                    <button id="cekcloseBtn">Batal</button>
                 </form>
             </div>
         </div>
         {{--  Peta dan popup Close  --}}
         </div>
         <div class="right">
-            <img src="img/gambar_login.png" alt="">
+            <img src="img/logo.png" alt="">
         </div>
     </div>
     {{--  popup cek star  --}}

@@ -73,10 +73,15 @@ p {
     margin: 10px;
 }
 
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .right img {
-    padding: 2rem;
-    width: 200px;
-    height: 90%;
+    width: 70%;
+    max-width: 300px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 }
@@ -91,6 +96,7 @@ form label {
 }
 
 form span1 {
+    flex-basis: 100%;
     width: 100%;
     background-color: #fff;
     border: none;
@@ -117,7 +123,7 @@ span:hover {
     color: #fff;
 }
 
-/* popup cek star */
+/* popup cek start */
 #cekloginPopup {
     display: none;
     position: fixed;
@@ -146,14 +152,14 @@ span:hover {
 }
 
 .cekpopupContent label {
-    text-align: left;
+    display: block;
     color: #000000;
 }
 
 .cekpopupContent form input {
     width: 100%;
     padding: 8px 10px;
-    margin-bottom: 15px;
+    margin-bottom: 5px; /* Mengurangi jarak margin untuk input */
     border: none;
     border-bottom: 2px solid #d2a800;
     color: #000;
