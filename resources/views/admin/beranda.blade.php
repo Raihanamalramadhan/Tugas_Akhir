@@ -119,7 +119,7 @@
         popupContent += '</div>';
         marker.bindPopup(popupContent);
         markers.push(marker);
-    @endforeach
+        @endforeach
 
 
 
@@ -248,7 +248,6 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Data Berhasil Dihapus',
-                text: '{{ session('success') }}',
                 timer: 1500, // Durasi tampilan pop-up dalam milidetik (ms)
                 showConfirmButton: false,
                 customClass: {

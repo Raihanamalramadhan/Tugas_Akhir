@@ -172,72 +172,72 @@
         @include('sweetalert::alert')
 
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    var curLocation = [{{ $editdata->latitude }}, {{ $editdata->longitude }}];
-    var map = L.map('map').setView(curLocation, 8);
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        var curLocation = [{{ $editdata->latitude }}, {{ $editdata->longitude }}];
+        var map = L.map('map').setView(curLocation, 8);
 
-    var tileLayers = {
-        Streets: L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }),
-        Hybrid: L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        })
-    };
+        var tileLayers = {
+            Streets: L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+            }),
+            Hybrid: L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+            })
+        };
 
-    var marker = L.marker(curLocation, {
-        draggable: true,
-    }).addTo(map);
-
-    // Menambahkan layer default
-    tileLayers.Streets.addTo(map);
-
-    // Menambahkan kontrol layer
-    L.control.layers(tileLayers).addTo(map);
-
-    // Fungsi untuk memperbarui nilai input latitude dan longitude
-    function updateLatLng(latlng) {
-        var latitude = latlng.lat.toFixed(6);
-        var longitude = latlng.lng.toFixed(6);
-        $('#latitude').val(latitude);
-        $('#longitude').val(longitude);
-
-        // Simpan perubahan ke database menggunakan AJAX
-        $.ajax({
-            url: '/update-location', // Ganti dengan URL yang sesuai untuk menyimpan perubahan
-            method: 'POST',
-            data: {
-                latitude: latitude,
-                longitude: longitude,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                console.log('Data berhasil disimpan ke database.');
-            },
-            error: function(xhr, status, error) {
-                console.log('Terjadi kesalahan saat menyimpan data ke database.');
-            }
-        });
-    }
-
-    // Mendengarkan peristiwa dragend pada marker
-    marker.on('dragend', function(e) {
-        updateLatLng(marker.getLatLng());
-    });
-
-    // Mendengarkan peristiwa klik pada peta
-    map.on('click', function(e) {
-        if (marker) {
-            map.removeLayer(marker);
-        }
-        marker = L.marker(e.latlng, {
+        var marker = L.marker(curLocation, {
             draggable: true,
         }).addTo(map);
-        updateLatLng(marker.getLatLng());
-    });
+
+        // Menambahkan layer default
+        tileLayers.Streets.addTo(map);
+
+        // Menambahkan kontrol layer
+        L.control.layers(tileLayers).addTo(map);
+
+        // Fungsi untuk memperbarui nilai input latitude dan longitude
+        function updateLatLng(latlng) {
+            var latitude = latlng.lat.toFixed(6);
+            var longitude = latlng.lng.toFixed(6);
+            $('#latitude').val(latitude);
+            $('#longitude').val(longitude);
+
+            // Simpan perubahan ke database menggunakan AJAX
+            $.ajax({
+                url: '/update-location', // Ganti dengan URL yang sesuai untuk menyimpan perubahan
+                method: 'POST',
+                data: {
+                    latitude: latitude,
+                    longitude: longitude,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('Data berhasil disimpan ke database.');
+                },
+                error: function(xhr, status, error) {
+                    console.log('Terjadi kesalahan saat menyimpan data ke database.');
+                }
+            });
+        }
+
+        // Mendengarkan peristiwa dragend pada marker
+        marker.on('dragend', function(e) {
+            updateLatLng(marker.getLatLng());
+        });
+
+        // Mendengarkan peristiwa klik pada peta
+        map.on('click', function(e) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker(e.latlng, {
+                draggable: true,
+            }).addTo(map);
+            updateLatLng(marker.getLatLng());
+        });
         //fitur pencarian
         function cariDaerah() {
             var inputDaerah = document.getElementById('daerah').value;

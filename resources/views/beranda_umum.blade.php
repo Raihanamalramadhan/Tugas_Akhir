@@ -44,10 +44,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -62,10 +62,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -87,10 +87,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-arrow-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -111,10 +111,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -136,10 +136,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -164,10 +164,10 @@
                         </h3>
                         <button class="question-btn">
                             <span class="up-icon">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fa fa-caret-up"></i>
                             </span>
                             <span class="down-icon">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fa fa-caret-down"></i>
                             </span>
                         </button>
                     </div>
@@ -211,12 +211,18 @@
                 question.classList.toggle("show-text");
             })
         })
+
+        const questionBtns = document.querySelectorAll('.question-btn');
+
+        questionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+            });
+        });
     </script>
 
     {{--  js icon  --}}
-    <script>
-        feather.replace()
-    </script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
 </body>
 @endsection
 

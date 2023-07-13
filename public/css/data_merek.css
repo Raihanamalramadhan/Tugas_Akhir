@@ -99,6 +99,28 @@ button:hover {
     margin: 10px 20px 20px 20px;
     text-align: center;
 }
+
+.custom-popup {
+    width: 100px; /* Sesuaikan lebar popup */
+}
+
+.custom-popup-image-container {
+    text-align: center;
+}
+
+.custom-popup-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.custom-popup-info h6 {
+    text-align: center;
+    font-size: 11px; /* Sesuaikan ukuran teks */
+    font-weight: bold; /* Menambahkan tebal pada teks */
+}
+
 /* peta close */
 
 /* popup cek star */
@@ -324,21 +346,47 @@ td img {
     vertical-align: middle;
 }
 
+td .gambar-kecil {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+td .gambar-besar {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s;
+}
+
 table,
 th,
 td {
     border-collapse: collapse;
     padding: 1rem;
     text-align: left;
+    text-align: center;
 }
 
 thead th {
+    min-width: 7rem;
+    width: 100%;
     position: sticky;
     top: 0;
     left: 0;
     background-color: #d5d1defe;
     cursor: pointer;
     text-transform: capitalize;
+}
+
+thead .kolom1 {
+    min-width: 10rem;
+}
+
+thead .kolom2 {
+    min-width: 14rem;
 }
 
 tbody tr:nth-child(even) {

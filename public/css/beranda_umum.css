@@ -151,6 +151,22 @@ body {
     display: none;
 }
 
+.up-icon i {
+    transform: rotate(180deg);
+}
+
+.down-icon i {
+    transform: rotate(0);
+}
+
+.question-btn.active .up-icon i {
+    transform: rotate(0);
+}
+
+.question-btn.active .down-icon i {
+    transform: rotate(180deg);
+}
+
 .answer {
     font-size: 0.8rem;
     line-height: 1.8;

@@ -15,21 +15,40 @@
 <body>
     <div class="container">
         <div class="login">
-            <form action="">
+        @if(session()->has('loginError'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('loginError') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        @endif
+            <form action="/login" method="POST">
+            @csrf
                 <h1>Masuk</h1>
                 <hr>
                 <p>Kementerian Hukum dan Ham Wilayah Aceh</p>
-                <label for="">Email</label>
-                <input type="text" placeholder="example@gmail.com">
-                <label for="">Sandi</label>
-                <input type="password" placeholder="Password">
-                <a href="/beranda" class="button-link">Masuk</a>
+                <label for="email">Email</label>
+                <input type="text" class="form-control input-same-size @error('email') is-invalid @enderror" id="email" name="email" placeholder="example@gmail.com" required value="{{ old('email') }}">
+                @error('email')
+                    <div class="invalid-feedback">
+                    {{ $message }} </div>
+                @enderror
+                <label for="password">Sandi</label>
+                <input type="password" name="password" class="form-control input-same-size @error('password') is-invalid @enderror" id="password" placeholder="Password">
+                @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }} </div>
+                @enderror
+
+                <div>
+                    <button class="button" type="submit">MASUK</button>
+                </div>
+                <!-- <a href="/beranda" class="button-link">Masuk</a> -->
             </form>
         </div>
         <div class="right">
             <img src="img/gambar_login.png" alt="">
         </div>
-    </div>
+ </div>
 </body>
 @endsection
 

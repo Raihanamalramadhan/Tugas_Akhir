@@ -21,14 +21,23 @@ Route::get('/', function () {
     ]);
 });
 
+//bagian data merek
+Route::get('/cekdata', "App\Http\Controllers\UserController@cekData");
 Route::get('/dataMerek', "App\Http\Controllers\DashboardController@index");
 Route::get('/addData', "App\Http\Controllers\DashboardController@create");
 Route::post('/tambahData', "App\Http\Controllers\DashboardController@store");
-// Route::get('/dataMerek', function () {
-//     return view('.dataMerek.data_merek', [
-//         "title" => "data merek"
-//     ]);
+
+// Route::get('/data/{id}/edit', "App\Http\Controllers\NomorPemohonController@edit")->name('data.edit');
+// Route::put('/usermerek/{nomor_pemohon}', "App\Http\Controllers\UserController@update")->name('data.update');
+Route::post('/cekdata', "App\Http\Controllers\UserController@cekData")->name('cekdata');
+Route::get('/usermerek/{nomor_pemohon}', 'App\Http\Controllers\UserController@showUserMerek')->name('usermerek');
+Route::put('/username/edit/{id}', "App\Http\Controllers\UserController@update")->name('username.edit');
+
+// Tambahkan rute ini jika belum ada
+// Route::get('/cekdata', function () {
+//     return view('dataMerek.user_merek');
 // });
+
 
 Route::get('/kelasMerek', function () {
     return view('kelas_merek', [
@@ -50,11 +59,7 @@ Route::get('/login_admin', function () {
 
 
 
-// // Daftar diri(register)
-// Route::get('/daftardiri', function () {
-//     return view('daftar_diri');
-// });
-//UMUM
+// bagian daftar diri
 Route::get('/daftardiri', "App\Http\Controllers\PengajuanController@index");
 Route::post('/ajukan', "App\Http\Controllers\PengajuanController@store");
 
@@ -63,12 +68,6 @@ Route::post('/ajukan', "App\Http\Controllers\PengajuanController@store");
 // Route::get('/tambahdata', function () {
 //     return view('dataMerek.tambah_data');
 // });
-
-// Masuk akun
-Route::get('/cekdata', function () {
-    return view('dataMerek.user_merek');
-});
-
 
 
 // route admin

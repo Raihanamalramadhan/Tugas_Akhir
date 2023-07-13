@@ -17,9 +17,11 @@ class DashboardController extends Controller
     {
         $users = User::join('tipes', 'users.id_tipe', '=', 'tipes.id')
         ->join('kelas', 'users.id_kelas', '=', 'kelas.id')
-        ->select('users.*', 'tipes.nama_tipe', 'kelas.nama_kelas')
+        ->join('kabupatens', 'users.id_kabupaten', '=', 'kabupatens.id')
+        ->select('users.*', 'tipes.nama_tipe', 'kelas.nama_kelas', 'kabupatens.nama_kabupaten')
         ->get();
         $kabupaten = DB::table("kabupatens")->get();
+        $kelas = Kelas::all();
 
         $tipeCounts = $users->countby('nama_tipe');
 
@@ -31,7 +33,11 @@ class DashboardController extends Controller
         $label = $tahunCounts->keys()->toArray();
         $value = $tahunCounts->values()->toArray();
 
-        return view('dataMerek.data_merek', compact('kabupaten', 'users', 'labels', 'values', 'label', 'value'));
+        // untuk menampilakan titik di peta
+        $titik = DB::table("users")->get();
+        $nama_kelas = DB::table('users')->select('id_kelas')->get();
+
+        return view('dataMerek.data_merek', compact('kabupaten', 'users', 'labels', 'values', 'label', 'value', 'kelas'));
     }
 
     public function create()
@@ -109,7 +115,7 @@ public function showDataMerek()
 
         if ($user) {
             $user->delete();
-            return back()->with('success', 'Data berhasil ditolak');
+            return back();
         } else {
             return back()->with('error', 'Data tidak ditemukan');
         }

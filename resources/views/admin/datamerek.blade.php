@@ -51,7 +51,7 @@
                             <tr data-userid="{{ $user->id }}">
                                 <td class="button-container">
                                     {{--  <button type="button" class="accept-button">Edit</button>  --}}
-                                    <a href="/{{ $user->id }}/edit">Edit</a>
+                                    <a href="/{{ $user->id }}/edit" class="accept-button">Edit</a>
                                     <form action="{{ route('notifikasi.delete', $user->id) }}" method="POST" class="delete-form">
                                         @csrf
                                         @method('DELETE')

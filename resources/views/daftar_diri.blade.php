@@ -86,7 +86,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Data Berhasil Diajukan',
-                text: '{{ session('success') }}',
+                text: '{{ session('toast_error') }}',
                 timer: 2000, // Duration of the popup display in milliseconds (ms)
                 showConfirmButton: false
             });

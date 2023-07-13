@@ -6,14 +6,17 @@
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
 
-    <link rel="stylesheet" href="css/user_merek.css">
+    <link rel="stylesheet" href="{{ asset('css/user_merek.css') }}">
 
-    <link rel="shortcut icon" href="img/logo_judul.svg">
+    <link rel="shortcut icon" href="{{ asset('img/logo_judul.svg') }}">
     <title>Merek Cerdas</title>
 </head>
 <body>
 		<!-- MAIN -->
 		<main>
+            <form method="POST" action="{{ route('username.edit', $data->id) }}">
+                @csrf
+                @method('PUT')
 			<div class="data">
 				<div class="content-data">
 					<div class="head">
@@ -21,54 +24,61 @@
                         <hr>
                         <div class="wrapper">
                             <div class="logo">
-                                <img src="img/logo_judul.svg" alt="Logo">
+                                <img src="{{ asset('merek/' . $data->gambar_merek) }}" alt="Logo">
                             </div>
-                            <div class="form">
-                                <div class="inputfield">
-                                    <label>Nomor pemohon</label>
-                                    <input type="text" class="input">
-                                </div>
+                                <div class="form">
+                                    <div class="inputfield">
+                                        <label>Nomor pemohon</label>
+                                        <span class="input">{{ $data->nomor_pemohon }}</span>
+                                        {{--  <input type="text" class="input" name="nomor_pemohon" value="{{ $data->nomor_pemohon }}" required>  --}}
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Nama pemilik</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Nama pemilik</label>
+                                        <input type="text" class="input" name="nama_pemilik" value="{{ $data->nama_pemilik }}">
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Nomor telepon</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Nomor telepon</label>
+                                        <input type="text" class="input" name="nomor_telepon" value="{{ $data->nomor_telepon }}">
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Email</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Email</label>
+                                        <input type="text" class="input" name="email" value="{{ $data->email }}">
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Nama merek</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Nama merek</label>
+                                        <span class="input">{{ $data->nama_merek }}</span>
+                                        {{--  <input type="text" class="input" value="{{ $data->nama_merek }}">  --}}
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Tahun penerimaan</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Tahun penerimaan</label>
+                                        <span class="input">{{ $data->tahun_penerimaan }}</span>
+                                        {{--  <input type="text" class="input" value="{{ $data->tahun_penerimaan }}">  --}}
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>Tipe pemohon</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>Tipe pemohon</label>
+                                        <span class="input">{{ $data->id_tipe }}</span>
+                                        {{--  <input type="text" class="input" value="{{ $data->id_tipe }}">  --}}
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>kelas</label>
-                                    <input type="text" class="input">
-                                </div>
+                                    <div class="inputfield">
+                                        <label>kelas</label>
+                                        <span class="input">{{ $data->id_kelas }}</span>
+                                        {{--  <input type="text" class="input" value="{{ $data->id_kelas }}">  --}}
+                                    </div>
 
-                                <div class="inputfield">
-                                    <label>kabupaten</label>
-                                    <input type="text" class="input">
+                                    <div class="inputfield">
+                                        <label>kabupaten</label>
+                                        <span class="input">{{ $data->id_kabupaten }}</span>
+                                        {{--  <input type="text" class="input" value="{{ $data->id_kabupaten }}">  --}}
+                                    </div>
+                                </form>
                                 </div>
-                            </div>
                         </div>
 					</div>
 				</div>
@@ -76,25 +86,38 @@
                     <div class="head">
 						<h2>Lokasi</h2>
                         <hr>
-					</div>
                         <div class="right">
-                            <span id="latitudeValue">Latitude :</span>
-                            <label for="lokasi"></label>
-                            <span id="longitudeValue">Longitude :</span>
-                            {{--  Menampilkan peta  --}}
-                            <div class="pencarian">
-                                {{--  menampilkan fitur pencarian lokasi  --}}
-                                <input type="text" id="daerah" placeholder="Masukkan nama daerah">
-                                <button type="button" onclick="cariDaerah()">Cari</button>
-                            </div>
-                            <div id="map"></div>
                             <div class="inputfield">
-                                <input type="submit" value="simpan" class="btn">
-                                <a href="/dataMerek"><input type="submit" value="keluar" class="btn2"></a>
+                                <label>Latitude</label>
+                                <input class="input" type="text" id="latitude" name="latitude" value="{{ $data->latitude }}" required>
                             </div>
-                        </div>
+                            <div class="inputfield">
+                                <label>Longitude</label>
+                                <input class="input" type="text" id="longitude" name="longitude" value="{{ $data->longitude }}" required>
+                            </div>
+                                {{--  <input class="nilai" id="latitudeValue" name="latitude" value="" placeholder="Nilai latitude"></input>
+                                <input class="nilai" id="longitudeValue" name="longitude" value="" class="form-control @error('longitude') is-invalid @enderror" placeholder="Nilai longitude"></input>
+                                @error('longitude')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror  --}}
+
+                                <div id="map"></div>
+                                {{--  Menampilkan peta  --}}
+                                <div class="pencarian">
+                                    {{--  menampilkan fitur pencarian lokasi  --}}
+                                    <input type="text" id="daerah" placeholder="Masukkan nama daerah">
+                                    <button type="button" onclick="cariDaerah()">Cari</button>
+                                </div>
+                                <div class="inputfield">
+                                    <button class='btn' type="submit" onclick="simpanData()">Simpan</button>
+                                    <a href="/datamerek" class="btn2">Batal</a>
+                                </div>
+                            </div>
 				</div>
 			</div>
+        </form>
 		</main>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
         <script>
@@ -119,17 +142,18 @@
         L.control.layers(tileLayers).addTo(map);
 
         var marker;
-        map.on('click', function (e) {
-            if (marker) {
-                map.removeLayer(marker);
-            }
-            marker = L.marker(e.latlng).addTo(map);
-            var latitude = e.latlng.lat.toFixed(6);
-            var longitude = e.latlng.lng.toFixed(6);
-            document.getElementById('latitudeValue').textContent = 'Latitude: ' + latitude;
-            document.getElementById('longitudeValue').textContent = 'Longitude: ' + longitude;
-        });
+        var latitudeInput = document.getElementById('latitude');
+        var longitudeInput = document.getElementById('longitude');
 
+        // Mendapatkan nilai latitude dan longitude dari input
+        var latitude = parseFloat(latitudeInput.value);
+        var longitude = parseFloat(longitudeInput.value);
+
+        // Menampilkan marker berdasarkan latitude dan longitude
+        if (!isNaN(latitude) && !isNaN(longitude)) {
+            marker = L.marker([latitude, longitude]).addTo(map);
+            map.setView([latitude, longitude], 13);
+}
          //fitur pencarian
         function cariDaerah() {
         var inputDaerah = document.getElementById('daerah').value;

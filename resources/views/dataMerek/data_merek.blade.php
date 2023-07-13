@@ -24,70 +24,29 @@
 {{--  Heading Close  --}}
 
 {{--  kelas, jumlah merek & tipe star --}}
-    <select class="custom-select">
+    <select id="kelas-select" class="custom-select">
         <option value="" selected disabled>Pilih kelas</option>
-        <option value="option1">kelas 1</option>
-        <option value="option2">kelas 2</option>
-        <option value="option3">kelas 3</option>
-        <option value="option4">kelas 4</option>
-        <option value="option5">kelas 5</option>
-        <option value="option6">kelas 6</option>
-        <option value="option7">kelas 7</option>
-        <option value="option8">kelas 8</option>
-        <option value="option9">kelas 9</option>
-        <option value="option10">kelas 10</option>
-        <option value="option11">kelas 11</option>
-        <option value="option12">kelas 12</option>
-        <option value="option13">kelas 13</option>
-        <option value="option14">kelas 14</option>
-        <option value="option15">kelas 15</option>
-        <option value="option16">kelas 16</option>
-        <option value="option17">kelas 17</option>
-        <option value="option18">kelas 18</option>
-        <option value="option19">kelas 19</option>
-        <option value="option20">kelas 20</option>
-        <option value="option21">kelas 21</option>
-        <option value="option22">kelas 22</option>
-        <option value="option23">kelas 23</option>
-        <option value="option24">kelas 24</option>
-        <option value="option25">kelas 25</option>
-        <option value="option26">kelas 26</option>
-        <option value="option27">kelas 27</option>
-        <option value="option28">kelas 28</option>
-        <option value="option29">kelas 29</option>
-        <option value="option30">kelas 30</option>
-        <option value="option31">kelas 31</option>
-        <option value="option32">kelas 32</option>
-        <option value="option33">kelas 33</option>
-        <option value="option34">kelas 34</option>
-        <option value="option35">kelas 35</option>
-        <option value="option36">kelas 36</option>
-        <option value="option37">kelas 37</option>
-        <option value="option38">kelas 38</option>
-        <option value="option39">kelas 39</option>
-        <option value="option40">kelas 40</option>
-        <option value="option41">kelas 41</option>
-        <option value="option42">kelas 42</option>
-        <option value="option43">kelas 43</option>
-        <option value="option44">kelas 44</option>
-        <option value="option45">kelas 45</option>
+        @foreach($kelas as $data_kelas)
+            <option value="{{$data_kelas->id}}">{{$data_kelas->nama_kelas}}</option>
+        @endforeach
     </select>
+
     <button class="kelas" onclick="myFunction()" id="showBoundariesButton">Jumlah Merek</button>
 
     <button class="tipe-pemohon1">
-        <input type="checkbox" id="option1" name="option1" value="option1">
+        <input type="checkbox" id="option1" name="option1" value="1">
         <label for="option1">Merek Dagang dan Jasa</label>
     </button>
     <button class="tipe-pemohon">
-        <input type="checkbox" id="option2" name="option2" value="option2">
+        <input type="checkbox" id="option2" name="option2" value="2">
         <label for="option2">Merek Dagang</label>
     </button>
     <button class="tipe-pemohon">
-        <input type="checkbox" id="option3" name="option3" value="option3">
+        <input type="checkbox" id="option3" name="option3" value="3">
         <label for="option3">Merek Jasa</label>
     </button>
     <button class="tipe-pemohon">
-        <input type="checkbox" id="option4" name="option4" value="option4">
+        <input type="checkbox" id="option4" name="option4" value="4">
         <label for="option4">Merek Kolektif</label>
     </button>
 {{--  kelas, jumlah merek & tipe close--}}
@@ -102,11 +61,12 @@
     {{--  menampilkan popup login  --}}
     <div id="cekloginPopup">
         <div class="cekpopupContent">
-            <form>
+            <form action="{{ route('cekdata') }}" method="POST" onsubmit="submitCekData()">
+                @csrf
                 <label>Nomor Pemohon</label><br>
-                <input  type="text" id="nomor-pemohon" placeholder="Masukkan nomor pemohon"><br>
-                <button type="submit"><a href="/cekdata">Cek data</a></button>
-                <button button id="cekcloseBtn">Batal</button>
+                <input type="text" name="nomor-pemohon" placeholder="Masukkan nomor pemohon" required><br>
+                <button type="submit" class="tombolcek">Cek data</button>
+                <button type="button" id="cekcloseBtn" onclick="closeSwal()">Batal</button>
             </form>
         </div>
     </div>
@@ -117,7 +77,6 @@
         <div class="chart">
             <h2>Jumlah merek pertahun</h2>
             <canvas id="myChart"></canvas>
-            <label for="y-axis-description">Tahun</label>
         </div>
         <div class="chart" id="doughnut-chart">
             <h2>Tipe Pemohon</h2>
@@ -140,11 +99,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th> Nama Merek <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Nama Tipe <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Gambar Merek</th>
-                        <th> Kelas <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Nama Pemilik <span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom2"> Nama Merek<span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom2"> Nama Tipe<span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom1"> Gambar Merek</th>
+                        <th> Kelas<span class="icon-arrow">&UpArrow;</span></th>
+                        <th class="kolom2">Nama Pemilik <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Kabupaten<span class="icon-arrow">&UpArrow;</span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,6 +120,7 @@
                             </td>
                             <td>{{ $user->nama_kelas }}</td>
                             <td>{{ $user->nama_pemilik }}</td>
+                            <td>{{ $user->nama_kabupaten }}</td>
                         </tr>
                     @endif
                 @endforeach
@@ -174,84 +135,191 @@
 {{--  tabel close  --}}
 
 {{--  Script Star  --}}
+    <script>
+        // Mendengarkan perubahan pada elemen select
+        document.getElementById('kelas-select').addEventListener('change', function() {
+            var selectedKelas = this.value; // Mendapatkan id_kelas yang dipilih
+
+            // Loop melalui semua marker
+            markers.forEach(function(marker) {
+                // Periksa id_kelas marker dengan id_kelas yang dipilih
+                if (marker.options.id_kelas == selectedKelas || selectedKelas === '') {
+                    marker.addTo(map); // Tampilkan marker jika id_kelas sesuai atau tidak ada id_kelas yang dipilih
+                } else {
+                    map.removeLayer(marker); // Sembunyikan marker jika id_kelas tidak sesuai
+                }
+            });
+        });
+    </script>
+
     {{--  Peta stars --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        var map = L.map('map').setView([4.6951, 96.7494], 8);
+       var map = L.map('map').setView([4.6951, 96.7494], 8);
 
-        // Menambahkan opsi tampilan peta
-        var tileLayers = {
-            Streets: L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
-                maxZoom: 20,
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-            }),
-            Hybrid: L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
-                maxZoom: 20,
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-            })
-        };
+    var tileLayers = {
+        Streets: L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }),
+        Hybrid: L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        })
+    };
 
-        // Menambahkan layer default
-        tileLayers.Streets.addTo(map);
+    tileLayers.Streets.addTo(map);
 
-        // Menambahkan kontrol layer
-        L.control.layers(tileLayers).addTo(map);
+    var markers = [];
+    var originalMarkers = [];
 
-        //menampilkan popup
-        var marker = L.marker([4.6951, 96.7494]).addTo(map);
-        marker.bindPopup("gambar merek, nama merek").openPopup();
+    @foreach($users as $data_pengajuan)
+        @if($data_pengajuan->id_status == 1)
+        var markerIcon;
+        @if($data_pengajuan->id_tipe == 1)
+            markerIcon = L.icon({
+                iconUrl: 'icon/icon1.png',
+                iconSize: [25, 35],
+                iconAnchor: [12, 35],
+                popupAnchor: [0, -41]
+            });
+        @elseif($data_pengajuan->id_tipe == 2)
+            markerIcon = L.icon({
+                iconUrl: 'icon/icon2.png',
+                iconSize: [25, 35],
+                iconAnchor: [12, 35],
+                popupAnchor: [0, -35]
+            });
+        @elseif($data_pengajuan->id_tipe == 3)
+            markerIcon = L.icon({
+                iconUrl: 'icon/icon3.png',
+                iconSize: [25, 35],
+                iconAnchor: [12, 35],
+                popupAnchor: [0, -35]
+            });
+        @elseif($data_pengajuan->id_tipe == 4)
+            markerIcon = L.icon({
+                iconUrl: 'icon/icon4.png',
+                iconSize: [25, 35],
+                iconAnchor: [12, 35],
+                popupAnchor: [0, -35]
+            });
+        @endif
+
+        var marker = L.marker([{{$data_pengajuan->latitude}}, {{$data_pengajuan->longitude}}], {
+            id_kelas: {{$data_pengajuan->id_kelas}},
+            icon: markerIcon
+        });
+
+        originalMarkers.push(marker);
+
+        var popupContent = '<div class="custom-popup">';
+        popupContent += '<div class="custom-popup-image-container">';
+        popupContent += '<img src="{{ asset('merek/' . $data_pengajuan->gambar_merek) }}" class="custom-popup-image">';
+        popupContent += '</div>';
+        popupContent += '<div class="custom-popup-info">';
+        popupContent += '<h6>{{$data_pengajuan->nama_merek}}</h6>';
+        popupContent += '</div>';
+        popupContent += '</div>';
+
+        marker.bindPopup(popupContent, {
+            minWidth: 100
+        });
+
+        markers.push(marker);
+        marker.addTo(map);
+        @endif
+    @endforeach
+
+    L.control.layers(tileLayers).addTo(map);
+
+    var checkboxes = document.querySelectorAll('.tipe-pemohon input[type="checkbox"]');
+
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            var tipeId = this.value;
+
+            markers.forEach(function(marker) {
+                var idKelas = marker.options.id_kelas;
+
+                if (idKelas == tipeId) {
+                    marker.addTo(map);
+                } else {
+                    map.removeLayer(marker);
+                }
+            });
+        });
+    });
 
         // Mendapatkan referensi ke tombol
         var showBoundariesButton = document.getElementById('showBoundariesButton');
 
         // Menambahkan event listener untuk menangani klik pada tombol
         showBoundariesButton.addEventListener('click', function() {
-            // Kode untuk menampilkan batas kabupaten akan ditambahkan di sini
+            toggleBoundaries();
         });
 
-        // batas kabupaten
-        showBoundariesButton.addEventListener('click', function() {
-            // batas kabupaten
-            var activeLayer = null;
+        var boundariesAdded = false; // Tambahkan variabel untuk melacak apakah batas sudah ditambahkan
 
-            @foreach ($kabupaten as $kab)
-                $.getJSON("{{ $kab->geojson_kab }}", function(data) {
-                    var kabupatenLayer = L.geoJSON(data, {
-                        style: {
-                            color: 'blue',
-                            weight: 1,
-                            opacity: 1,
-                            dashArray: '3',
-                            fillOpacity: 0.1,
-                        },
-                        onEachFeature: function(feature, layer) {
-                            layer.on('click', function(event) {
-                                if (activeLayer) {
-                                    activeLayer.setStyle({ color: 'blue' });
-                                }
-
-                                var kabupatenProperties = feature.properties;
-
-                                var popupContent = '<h3>' + kabupatenProperties.nama_kabupaten + '</h3>' +
-                                                    '<p>Informasi lainnya tentang kabupaten...</p>';
-
-                                layer.bindPopup(popupContent).openPopup();
-
-                                layer.setStyle({ color: 'red' });
-
-                                activeLayer = layer;
-                            });
-                        }
-                    });
-
-                    kabupatenLayer.addTo(map);
+        function toggleBoundaries() {
+            if (boundariesAdded) {
+                // Hapus batas kabupaten jika sudah ditambahkan sebelumnya
+                map.eachLayer(function(layer) {
+                    if (layer instanceof L.GeoJSON) {
+                        map.removeLayer(layer);
+                    }
                 });
-            @endforeach
-        });
-    </script>
 
+                // Tampilkan kembali marker saat batas kabupaten dihapus
+                originalMarkers.forEach(function(marker) {
+                    marker.addTo(map);
+                });
+
+                boundariesAdded = false; // Setel variabel boundariesAdded ke false
+            } else {
+                // Hapus marker saat batas kabupaten ditampilkan
+                markers.forEach(function(marker) {
+                    map.removeLayer(marker);
+                });
+
+                // Tambahkan batas kabupaten jika belum ditambahkan
+                var activeLayer = null;
+                @foreach ($kabupaten as $kab)
+                    $.getJSON("{{ $kab->geojson_kab }}", function(data) {
+                        var kabupatenLayer = L.geoJSON(data, {
+                            style: {
+                                color: 'blue',
+                                weight: 1,
+                                opacity: 1,
+                                dashArray: '3',
+                                fillOpacity: 0.1,
+                            },
+                            onEachFeature: function(feature, layer) {
+                                layer.on('click', function(event) {
+                                    if (activeLayer) {
+                                        activeLayer.setStyle({ color: 'blue' });
+                                    }
+                                    var kabupatenProperties = feature.properties;
+                                    var popupContent = '<div class="custom-popup">';
+                                    popupContent += '<h3>' + kabupatenProperties.nama_kabupaten + '</h3>';
+                                    popupContent += '<p>Informasi lainnya tentang kabupaten...</p>';
+                                    popupContent += '</div>';
+                                    layer.bindPopup(popupContent).openPopup();
+                                    layer.setStyle({ color: 'red' });
+                                    activeLayer = layer;
+                                });
+                            }
+                        });
+                        kabupatenLayer.addTo(map);
+                    });
+                @endforeach
+
+                boundariesAdded = true; // Setel variabel boundariesAdded ke true
+            }
+        }
+    </script>
     {{--  Peta Close  --}}
 
     {{--  popup cek star  --}}
@@ -275,8 +343,15 @@
                 {
                     label: "Jumlah Merek",
                     data: {!! json_encode($value) !!},
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
+                    borderColor: "#6C63FF",
+                    backgroundColor: "rgba(108, 99, 255, 0.2)",
+                    pointBackgroundColor: "#6C63FF",
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "#6C63FF",
+                    tension: 0.4,
                     fill: true
                 }
             ]
@@ -287,24 +362,53 @@
             responsive: true,
             title: {
                 display: true,
-                text: "Grafik Jumlah Merek"
+                text: "Grafik Jumlah Merek",
+                fontColor: "#6C63FF",
+                fontSize: 18,
+                fontFamily: "Helvetica"
             },
             scales: {
                 x: {
                     display: true,
                     title: {
                         display: true,
-                        text: "Tahun"
+                        text: "Tahun",
+                        fontColor: "#6C63FF",
+                        fontSize: 14,
+                        fontFamily: "Helvetica"
+                    },
+                    ticks: {
+                        fontColor: "#6C63FF"
+                    },
+                    grid: {
+                        color: "rgba(108, 99, 255, 0.1)"
                     }
                 },
                 y: {
                     display: true,
                     title: {
                         display: true,
-                        text: "Jumlah Merek"
+                        text: "Jumlah Merek",
+                        fontColor: "#6C63FF",
+                        fontSize: 14,
+                        fontFamily: "Helvetica"
                     },
                     ticks: {
+                        fontColor: "#6C63FF",
                         precision: 0
+                    },
+                    grid: {
+                        color: "rgba(108, 99, 255, 0.1)"
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: "top",
+                    labels: {
+                        fontColor: "#6C63FF",
+                        fontSize: 12,
+                        fontFamily: "Helvetica"
                     }
                 }
             }
@@ -331,30 +435,36 @@
                     label: 'Data',
                     data: @json($values),
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)',
-                        'rgba(54, 162, 235, 0.8)',
-                        'rgba(255, 206, 86, 0.8)',
-                        'rgba(75, 192, 192, 0.8)',
-                        'rgba(153, 102, 255, 0.8)'
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0',
+                        '#9966FF'
                     ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
+                    borderColor: '#fff',
+                    borderWidth: 3
                 }]
             },
             options: {
                 responsive: true,
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        fontColor: '#fff',
+                        fontSize: 12,
+                        fontFamily: 'Helvetica'
+                    }
                 },
                 title: {
                     display: true,
-                    text: 'nama_tipe'
+                    text: 'nama_tipe',
+                    fontColor: '#fff',
+                    fontSize: 18,
+                    fontFamily: 'Helvetica'
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
             }
         });
